@@ -9,7 +9,6 @@ import { RangePipe } from '../../pipes/range.pipe';
   styleUrl: './game-view.component.scss',
 })
 export class GameViewComponent {
-  items = [1, 2];
   scrHeight: number = 0;
   scrWidth: number = 0;
   gridWidth: number = 0;
