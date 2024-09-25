@@ -9,13 +9,17 @@ export class BuildingsService {
   buildingEnum = BuildingsEnum;
   constructor() {}
 
-  getBuildingTypes = (): Observable<any> => {
+  getBuildings = (): Observable<any> => {
     // mock for the time being
 
     return of([
       {
         name: 'Stone Wall',
-        type: this.buildingEnum.wall,
+        type: this.buildingEnum.WALL,
+      },
+      {
+        name: 'Stone Gate',
+        type: this.buildingEnum.GATE,
       },
     ]);
   };

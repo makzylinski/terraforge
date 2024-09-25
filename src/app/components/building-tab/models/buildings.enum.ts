@@ -1,6 +1,7 @@
 export enum BuildingsEnum {
-  wall,
-  building,
-  trap,
-  env,
+  WALL = 'wall',
+  GATE = 'gate',
+  BUILDING = 'building',
+  TRAP = 'trap',
+  ENV = 'env',
 }

@@ -2,4 +2,21 @@
   height: 85vh;
   border: 2px solid red;
   margin: 30px;
+  display: flex;
+
+  &__building {
+    cursor: pointer;
+    height: 80px;
+    width: 120px;
+    border: 2px solid gray;
+    margin: 20px;
+
+    &--name {
+      margin: 10px;
+    }
+
+    &--type {
+      margin: 10px;
+    }
+  }
 }
