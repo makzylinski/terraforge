@@ -13,7 +13,7 @@ import { BuildingsService } from './services/buildings.service';
 })
 export class BuildingTabComponent implements OnInit {
   buildings$: Observable<Building[]>;
-  selectedBuilding: Building | null;
+  selectedBuilding: Building | null = null;
 
   constructor(private readonly buildingsService: BuildingsService) {}
 
@@ -22,7 +22,10 @@ export class BuildingTabComponent implements OnInit {
   }
 
   selectBuilding = (building: Building) => {
-    if (this.selectedBuilding) {
+    if (
+      this.selectedBuilding !== null &&
+      this.selectedBuilding.id === building.id
+    ) {
       this.selectedBuilding = null;
     } else {
       this.selectedBuilding = building;

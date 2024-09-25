@@ -1,5 +1,8 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { RangePipe } from '../../pipes/range.pipe';
+import { Building } from '../building-tab/models/building.model';
+import { BuildingsEnum } from '../building-tab/models/buildings.enum';
+import { BuildingsService } from '../building-tab/services/buildings.service';
 
 @Component({
   selector: 'trf-game-view',
@@ -8,11 +11,26 @@ import { RangePipe } from '../../pipes/range.pipe';
   templateUrl: './game-view.component.html',
   styleUrl: './game-view.component.scss',
 })
-export class GameViewComponent {
+export class GameViewComponent implements OnInit {
   scrHeight: number = 0;
   scrWidth: number = 0;
   gridWidth: number = 0;
   gridHeight: number = 0;
+  selectedBuilding: Building | null;
+  buildingEnum = BuildingsEnum;
+
+  constructor(private readonly buildingsService: BuildingsService) {
+    this.getScreenSize();
+  }
+
+  ngOnInit(): void {
+    this.buildingsService.selectedBuilding$.subscribe(
+      (selectedBuilding: Building | null) => {
+        console.log(selectedBuilding);
+        this.selectedBuilding = selectedBuilding;
+      }
+    );
+  }
 
   @HostListener('window:resize', ['$event'])
   getScreenSize() {
@@ -21,17 +39,17 @@ export class GameViewComponent {
     this.calculateGrid();
   }
 
-  constructor() {
-    this.getScreenSize();
-  }
-
   calculateGrid() {
     this.gridWidth = Math.round(Math.floor(this.scrWidth / 22));
     this.gridHeight = Math.round(Math.floor(this.scrHeight / 22));
   }
 
   onTileClick(event: MouseEvent) {
-    console.log(event.clientX);
-    console.log(event.clientY);
+    const target = event.target as HTMLElement;
+
+    console.log(event);
+    if (this.selectedBuilding?.type === this.buildingEnum.WALL) {
+      target.style.backgroundColor = 'red';
+    }
   }
 }
