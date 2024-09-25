@@ -13,11 +13,21 @@ import { BuildingsService } from './services/buildings.service';
 })
 export class BuildingTabComponent implements OnInit {
   buildings$: Observable<Building[]>;
+  selectedBuilding: Building | null;
+
   constructor(private readonly buildingsService: BuildingsService) {}
 
   ngOnInit(): void {
     this.buildings$ = this.buildingsService.getBuildings();
   }
 
-  selectBuilding = (building: Building) => console.log(building);
+  selectBuilding = (building: Building) => {
+    if (this.selectedBuilding) {
+      this.selectedBuilding = null;
+    } else {
+      this.selectedBuilding = building;
+    }
+
+    this.buildingsService.selectedBuilding$.next(this.selectedBuilding);
+  };
 }

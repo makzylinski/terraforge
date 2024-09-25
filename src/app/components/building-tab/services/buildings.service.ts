@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Building } from '../models/building.model';
 import { BuildingsEnum } from '../models/buildings.enum';
 
@@ -8,7 +8,8 @@ import { BuildingsEnum } from '../models/buildings.enum';
 })
 export class BuildingsService {
   buildingEnum = BuildingsEnum;
-  constructor() {}
+  private selectedBuildingSubject = new BehaviorSubject<Building | null>(null);
+  selectedBuilding$ = this.selectedBuildingSubject;
 
   getBuildings = (): Observable<Building[]> => {
     // mock for the time being
