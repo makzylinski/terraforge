@@ -19,8 +19,6 @@ export class GameViewComponent {
   getScreenSize() {
     this.scrHeight = window.innerHeight;
     this.scrWidth = window.innerWidth;
-    console.log(this.scrHeight, this.scrWidth);
-    console.log(typeof this.scrHeight);
     this.calculateGrid();
   }
 
@@ -29,7 +27,12 @@ export class GameViewComponent {
   }
 
   calculateGrid() {
-    this.gridWidth = Math.round(Math.floor(this.scrWidth / 19));
-    this.gridHeight = Math.round(Math.floor(this.scrHeight / 19));
+    this.gridWidth = Math.round(Math.floor(this.scrWidth / 22));
+    this.gridHeight = Math.round(Math.floor(this.scrHeight / 22));
+  }
+
+  onTileClick(event: MouseEvent) {
+    console.log(event.clientX);
+    console.log(event.clientY);
   }
 }

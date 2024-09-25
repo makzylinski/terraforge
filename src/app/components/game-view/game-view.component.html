@@ -1,5 +1,7 @@
 <div class="view">
-  @for (item of gridHeight | range; track $index) {
-  <div class="view__tile"></div>
-  } @for (item of items; track $index) {}
+  @for (row of gridHeight | range; track $index) {
+  <div class="view__tile" (click)="onTileClick($event)"></div>
+  @for (column of gridWidth | range; track $index) {
+  <div class="view__tile" (click)="onTileClick($event)"></div>
+  } }
 </div>

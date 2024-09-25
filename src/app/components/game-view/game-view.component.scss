@@ -1,13 +1,21 @@
 .view {
   box-sizing: border-box;
   border: 2px solid red;
-  height: 100%;
+  margin: 10px;
+  max-height: 85vh;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20px, 1fr));
+  grid-auto-rows: 1fr;
 
   &__tile {
-    width: 20px;
-    height: 20px;
     box-sizing: border-box;
-    border: 1px solid black;
-    margin: -1px;
+    border: 1px solid lightgray;
+    aspect-ratio: 1 / 1;
+
+    &:hover {
+      cursor: pointer;
+      background-color: lightgray;
+    }
   }
 }
