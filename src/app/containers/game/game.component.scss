@@ -1,0 +1,15 @@
+.game {
+  height: 100%;
+  width: 100%;
+
+  &__container {
+    display: flex;
+    &--tab {
+      width: 20%;
+    }
+
+    &--view {
+      width: 80%;
+    }
+  }
+}
