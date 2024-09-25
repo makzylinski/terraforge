@@ -1,6 +1,6 @@
 <div class="buildings">
   @for (building of buildings$ | async; track $index) {
-  <div class="buildings__building">
+  <div class="buildings__building" (click)="selectBuilding(building)">
     <img class="buildings__building--img" src="#" [alt]="building.name" />
     <h4 class="buildings__building--name">{{ building.name }}</h4>
     <h5 class="buildings__building--type">Type: {{ building.type }}</h5>

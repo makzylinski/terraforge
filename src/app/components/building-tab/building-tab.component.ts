@@ -18,4 +18,6 @@ export class BuildingTabComponent implements OnInit {
   ngOnInit(): void {
     this.buildings$ = this.buildingsService.getBuildings();
   }
+
+  selectBuilding = (building: Building) => console.log(building);
 }
