@@ -1,6 +1,6 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { RangePipe } from '../../pipes/range.pipe';
+import { RangePipe } from '../../shared/pipes/range.pipe';
 import { Building } from '../building-tab/models/building.model';
 import { BuildingsEnum } from '../building-tab/models/buildings.enum';
 import { BuildingsService } from '../building-tab/services/buildings.service';
@@ -20,6 +20,9 @@ export class GameViewComponent implements OnInit, OnDestroy {
   selectedBuilding: Building | null;
   buildingEnum = BuildingsEnum;
   selectedBuildingSub$: Subscription;
+  isSelecting: boolean = false;
+  startX: number = 0;
+  startY: number = 0;
 
   constructor(private readonly buildingsService: BuildingsService) {
     this.getScreenSize();
@@ -29,7 +32,6 @@ export class GameViewComponent implements OnInit, OnDestroy {
     this.selectedBuildingSub$ =
       this.buildingsService.selectedBuilding$.subscribe(
         (selectedBuilding: Building | null) => {
-          console.log(selectedBuilding);
           this.selectedBuilding = selectedBuilding;
         }
       );
@@ -47,16 +49,45 @@ export class GameViewComponent implements OnInit, OnDestroy {
     this.gridHeight = Math.round(Math.floor(this.scrHeight / 22));
   }
 
-  onTileClick(event: MouseEvent) {
-    const target = event.target as HTMLElement;
+  ngOnDestroy(): void {
+    this.selectedBuildingSub$.unsubscribe();
+  }
 
-    console.log(event);
-    if (this.selectedBuilding?.type === this.buildingEnum.WALL) {
-      target.style.backgroundColor = 'red';
+  @HostListener('mousedown', ['$event'])
+  onMouseDown(event: MouseEvent) {
+    if (event.buttons === 1) {
+      this.isSelecting = true;
+      this.startX = event.clientX;
+      this.startY = event.clientY;
     }
   }
 
-  ngOnDestroy(): void {
-    this.selectedBuildingSub$.unsubscribe();
+  @HostListener('mousemove', ['$event'])
+  onMouseMove(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+
+    if (
+      this.isSelecting &&
+      event.buttons === 1 &&
+      target.classList.contains('view__tile')
+    ) {
+      this.highlightTiles(target);
+    }
+  }
+
+  @HostListener('mouseup', ['$event'])
+  onMouseUp() {
+    this.isSelecting = false;
+  }
+
+  @HostListener('mouseleave', ['$event'])
+  onMouseLeave(event: MouseEvent) {
+    this.isSelecting = false;
+  }
+
+  highlightTiles(target: HTMLElement) {
+    if (this.selectedBuilding?.type === this.buildingEnum.WALL) {
+      target.style.backgroundColor = 'red';
+    }
   }
 }

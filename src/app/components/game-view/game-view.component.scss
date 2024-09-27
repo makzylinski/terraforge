@@ -12,6 +12,7 @@
     box-sizing: border-box;
     border: 1px solid lightgray;
     aspect-ratio: 1 / 1;
+    pointer-events: auto;
 
     &:hover {
       cursor: pointer;

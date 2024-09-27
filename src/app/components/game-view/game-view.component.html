@@ -1,7 +1,17 @@
-<div class="view">
+<div class="view" trfSelectable>
   @for (row of gridHeight | range; track $index) {
-  <div class="view__tile" (click)="onTileClick($event)"></div>
+  <div
+    class="view__tile"
+    (mousedown)="onMouseDown($event)"
+    (mousemove)="onMouseMove($event)"
+    (mouseup)="onMouseUp()"
+  ></div>
   @for (column of gridWidth | range; track $index) {
-  <div class="view__tile" (click)="onTileClick($event)"></div>
+  <div
+    class="view__tile"
+    (mousedown)="onMouseDown($event)"
+    (mousemove)="onMouseMove($event)"
+    (mouseup)="onMouseUp()"
+  ></div>
   } }
 </div>
